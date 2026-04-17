@@ -41,7 +41,7 @@ export function Navbar() {
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <Link
           href="/"
-          className="font-serif text-xl font-bold tracking-tight text-foreground"
+          className="font-serif text-3xl font-bold tracking-tight text-foreground"
           data-testid="nav-logo"
         >
           Mark Reid<span className="text-primary">.</span>

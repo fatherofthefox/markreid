@@ -6,10 +6,12 @@ export default function About() {
     <Layout>
       <div className="container mx-auto px-6 py-24 md:py-32">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">About Mark Reid</h1>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold mb-12 text-foreground leading-tight">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-6 text-foreground leading-tight">
+            About Mark Reid
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground font-light mb-12">
             I build growth teams and the systems that make them work.
-          </h2>
+          </p>
 
           <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
             <div className="aspect-[3/4] bg-secondary border border-border relative overflow-hidden">
