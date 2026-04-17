@@ -1,5 +1,7 @@
 import { Layout } from "@/components/layout/layout";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
+import { FadeUp, Stagger, StaggerItem } from "@/components/ui/animate";
 import { ArrowRight, BookOpen, Target, Users, TrendingUp, CheckSquare, Zap, BarChart2, MessageSquare } from "lucide-react";
 
 const frameworks = [
@@ -89,7 +91,7 @@ export default function Frameworks() {
   return (
     <Layout>
       <div className="container mx-auto px-6 py-24 md:py-32">
-        <div className="max-w-3xl mb-20">
+        <FadeUp className="max-w-3xl mb-20">
           <h1 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Sales Frameworks</h1>
           <h2 className="text-4xl md:text-6xl font-serif font-bold mb-8 text-foreground leading-tight">
             The frameworks I actually use.
@@ -97,52 +99,63 @@ export default function Frameworks() {
           <p className="text-xl text-muted-foreground leading-relaxed font-light">
             Not a reading list. These are the methodologies and mental models I've applied across different organisations — and the honest view of when and why they work.
           </p>
-        </div>
+        </FadeUp>
 
-        <div className="grid gap-12 max-w-5xl">
+        <Stagger className="grid gap-12 max-w-5xl" threshold={0.05}>
           {frameworks.map((fw) => (
-            <div key={fw.id} className="group relative bg-[#0a0a0e] border border-border p-8 md:p-12 hover:border-primary/30 transition-colors duration-500">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-300"></div>
+            <StaggerItem key={fw.id}>
+              <motion.div
+                className="group relative bg-[#0a0a0e] border border-border p-8 md:p-12 hover:border-primary/30 transition-colors duration-500"
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+              >
+                <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-primary scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-400 ease-out"></div>
 
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-                <div className="flex-shrink-0 bg-background border border-border p-4 rounded-sm group-hover:bg-primary/10 transition-colors">
-                  {fw.icon}
-                </div>
-
-                <div className="w-full">
-                  <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3">
-                    {fw.category}
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                  <div className="flex-shrink-0 bg-background border border-border p-4 rounded-sm group-hover:bg-primary/10 group-hover:border-primary/30 transition-colors duration-300">
+                    {fw.icon}
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-4">
-                    {fw.title}
-                  </h3>
-                  <p className="text-lg text-primary/80 font-medium mb-6">
-                    {fw.description}
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {fw.details}
-                  </p>
 
-                  {fw.letters && (
-                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {fw.letters.map((l, idx) => (
-                        <div key={`${l.letter}-${idx}`} className="flex items-start gap-3 bg-background/50 border border-border/50 p-4 rounded-sm">
-                          <span className="text-primary font-bold font-mono text-lg w-6 flex-shrink-0">{l.letter}</span>
-                          <div>
-                            <span className="font-semibold text-foreground block text-sm">{l.label}</span>
-                            <span className="text-muted-foreground text-xs">{l.desc}</span>
-                          </div>
-                        </div>
-                      ))}
+                  <div className="w-full">
+                    <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3">
+                      {fw.category}
                     </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                    <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-4">
+                      {fw.title}
+                    </h3>
+                    <p className="text-lg text-primary/80 font-medium mb-6">
+                      {fw.description}
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      {fw.details}
+                    </p>
 
-        <div className="mt-32 p-12 bg-primary/5 border border-primary/20 text-center max-w-4xl mx-auto">
+                    {fw.letters && (
+                      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {fw.letters.map((l, idx) => (
+                          <motion.div
+                            key={`${l.letter}-${idx}`}
+                            className="flex items-start gap-3 bg-background/50 border border-border/50 p-4 rounded-sm hover:border-primary/30 transition-colors duration-200"
+                            whileHover={{ x: 3 }}
+                            transition={{ duration: 0.15 }}
+                          >
+                            <span className="text-primary font-bold font-mono text-lg w-6 flex-shrink-0">{l.letter}</span>
+                            <div>
+                              <span className="font-semibold text-foreground block text-sm">{l.label}</span>
+                              <span className="text-muted-foreground text-xs">{l.desc}</span>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </StaggerItem>
+          ))}
+        </Stagger>
+
+        <FadeUp className="mt-32 p-12 bg-primary/5 border border-primary/20 text-center max-w-4xl mx-auto">
           <BookOpen className="w-8 h-8 text-primary mx-auto mb-6" />
           <h3 className="text-2xl font-serif font-bold mb-4">Want to apply these in your organisation?</h3>
           <p className="text-muted-foreground mb-8">
@@ -151,7 +164,7 @@ export default function Frameworks() {
           <Link href="/advisory" className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors">
             Advisory Services <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
-        </div>
+        </FadeUp>
       </div>
     </Layout>
   );

@@ -1,10 +1,11 @@
 import { Layout } from "@/components/layout/layout";
+import { FadeUp, FadeIn } from "@/components/ui/animate";
 
 export default function TechAI() {
   return (
     <Layout>
       <div className="container mx-auto px-6 py-24 md:py-32">
-        <div className="max-w-4xl mx-auto mb-20">
+        <FadeUp className="max-w-4xl mx-auto mb-20">
           <h1 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Tech &amp; AI</h1>
           <h2 className="text-4xl md:text-6xl font-serif font-bold mb-8 text-foreground leading-tight">
             AI as a tool for growth teams — not a replacement for them.
@@ -12,10 +13,10 @@ export default function TechAI() {
           <p className="text-xl text-muted-foreground leading-relaxed font-light">
             I'm interested in how AI and modern tooling can sharpen the way sales and growth teams work — better prospecting signals, smarter qualification inputs, faster research. What I'm not interested in is AI as a substitute for the human judgment that closes enterprise deals.
           </p>
-        </div>
+        </FadeUp>
 
         {/* Editorial content */}
-        <div className="max-w-3xl mx-auto mb-32 prose prose-invert prose-lg
+        <FadeIn delay={0.1} className="max-w-3xl mx-auto mb-32 prose prose-invert prose-lg
           prose-headings:font-serif prose-headings:text-foreground prose-headings:font-bold
           prose-p:text-muted-foreground prose-p:leading-relaxed
           prose-strong:text-foreground
@@ -42,10 +43,10 @@ export default function TechAI() {
           <p>
             I use AI tools for research (understanding an organisation's strategic priorities before a first meeting), for synthesis (turning a long call recording into a structured MEDDIC update), and for drafting (first pass on follow-up emails and proposals that a human then edits). The throughline is that AI handles information processing; humans handle judgment and relationship.
           </p>
-        </div>
+        </FadeIn>
 
         {/* The Elite Five Artifact */}
-        <div className="mb-16">
+        <FadeUp className="mb-16">
           <div className="flex items-center gap-4 mb-8">
             <div className="h-px bg-border flex-1"></div>
             <h3 className="text-sm font-mono text-muted-foreground uppercase tracking-widest">Published Artifact</h3>
@@ -171,7 +172,7 @@ export default function TechAI() {
               </div>
             </div>
           </div>
-        </div>
+        </FadeUp>
       </div>
     </Layout>
   );
