@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/layout";
 import { Link } from "wouter";
 import { ArrowRight, ChevronRight, TrendingUp, Users, Target } from "lucide-react";
+import heroImg from "@assets/_MG_6430_1776443485807.jpg";
 
 export default function Home() {
   return (
@@ -14,37 +15,53 @@ export default function Home() {
         </div>
 
         <div className="container relative z-10 mx-auto px-6">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 border border-border bg-background/50 backdrop-blur-sm mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase">Available for Advisory Engagements</span>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Text */}
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 border border-border bg-background/50 backdrop-blur-sm mb-8">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-xs font-mono tracking-wider text-muted-foreground uppercase">Available for Advisory Engagements</span>
+              </div>
+
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight leading-[1.1] mb-8 text-foreground">
+                Building revenue engines that{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-blue-500">actually scale.</span>
+              </h1>
+
+              <p className="text-xl text-muted-foreground leading-relaxed mb-12 font-light">
+                I build and lead growth teams, design sales processes, and help organisations move from opportunistic selling to a repeatable, high-performance revenue machine.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-6">
+                <Link
+                  href="/advisory"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all group"
+                  data-testid="cta-advisory"
+                >
+                  Work with Me
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/frameworks"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-secondary text-secondary-foreground font-semibold hover:bg-secondary/80 transition-all border border-border"
+                  data-testid="cta-frameworks"
+                >
+                  Sales Frameworks
+                </Link>
+              </div>
             </div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight leading-[1.1] mb-8 text-foreground">
-              Building revenue engines that<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-blue-500">actually scale.</span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-12 max-w-2xl font-light">
-              I build and lead growth teams, design sales processes, and help organisations move from opportunistic selling to a repeatable, high-performance revenue machine.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6">
-              <Link
-                href="/advisory"
-                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all group"
-                data-testid="cta-advisory"
-              >
-                Work with Me
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/frameworks"
-                className="inline-flex items-center justify-center px-8 py-4 bg-secondary text-secondary-foreground font-semibold hover:bg-secondary/80 transition-all border border-border"
-                data-testid="cta-frameworks"
-              >
-                Sales Frameworks I Believe In
-              </Link>
+            {/* Photo */}
+            <div className="relative hidden lg:block">
+              <div className="absolute -inset-4 bg-gradient-to-br from-primary/10 to-blue-900/10 blur-3xl opacity-60 pointer-events-none" />
+              <div className="relative border border-border overflow-hidden" style={{ aspectRatio: "3/4" }}>
+                <img
+                  src={heroImg}
+                  alt="Mark Reid"
+                  className="w-full h-full object-cover object-top grayscale-[20%]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>

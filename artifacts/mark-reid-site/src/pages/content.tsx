@@ -1,19 +1,31 @@
 import { Layout } from "@/components/layout/layout";
 import { Link } from "wouter";
 import { PlayCircle, FileText, Mic, ExternalLink, ArrowRight } from "lucide-react";
+import seatedImg from "@assets/_MG_6486_1776443482412.jpg";
 
 export default function Content() {
   return (
     <Layout>
       <div className="container mx-auto px-6 py-24 md:py-32">
-        <div className="max-w-4xl mb-20">
-          <h1 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Content</h1>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold mb-8 text-foreground leading-tight">
-            Talks, appearances, and published work.
-          </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed font-light">
-            A selection of conversations, keynotes, and written pieces on sales strategy, growth leadership, and building high-performance revenue teams.
-          </p>
+        {/* Header with photo */}
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-12 items-end mb-20">
+          <div>
+            <h1 className="text-sm font-mono text-primary uppercase tracking-widest mb-6">Content</h1>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold mb-8 text-foreground leading-tight">
+              Talks, appearances, and published work.
+            </h2>
+            <p className="text-xl text-muted-foreground leading-relaxed font-light">
+              A selection of conversations, keynotes, and written pieces on sales strategy, growth leadership, and building high-performance revenue teams.
+            </p>
+          </div>
+          <div className="relative border border-border overflow-hidden hidden lg:block" style={{ aspectRatio: "3/4", maxHeight: "380px" }}>
+            <img
+              src={seatedImg}
+              alt="Mark Reid"
+              className="w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
+          </div>
         </div>
 
         {/* Section: Talks */}

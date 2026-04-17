@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/layout";
+import portraitImg from "@assets/_MG_6351_(2)_1776443505868.jpg";
 
 export default function About() {
   return (
@@ -12,12 +13,12 @@ export default function About() {
 
           <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
             <div className="aspect-[3/4] bg-secondary border border-border relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay"></div>
-              <div className="w-full h-full bg-[#1a1a24] flex items-center justify-center p-8">
-                <div className="text-primary/40 font-mono text-sm transform -rotate-90 origin-center tracking-widest whitespace-nowrap">
-                  MARK REID
-                </div>
-              </div>
+              <img
+                src={portraitImg}
+                alt="Mark Reid"
+                className="w-full h-full object-cover object-top"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent pointer-events-none" />
             </div>
 
             <div className="prose prose-invert prose-lg max-w-none text-muted-foreground">
