@@ -1,6 +1,6 @@
 import { Layout } from "@/components/layout/layout";
 import { Link } from "wouter";
-import { ArrowRight, BookOpen, Target, Users, TrendingUp, CheckSquare, Zap, BarChart2 } from "lucide-react";
+import { ArrowRight, BookOpen, Target, Users, TrendingUp, CheckSquare, Zap, BarChart2, MessageSquare } from "lucide-react";
 
 const frameworks = [
   {
@@ -49,6 +49,23 @@ const frameworks = [
     category: "Discovery Framework",
     description: "A structured approach to discovery that moves from surface symptoms to the real cost of the problem — before proposing anything.",
     details: "Neil Rackham's SPIN Selling (Situation, Problem, Implication, Need-Payoff) remains one of the most evidence-based approaches to consultative selling. The key insight: most reps spend too long on Situation questions and jump to pitching before the buyer has fully internalised the cost of their problem. Implication questions — what happens if this doesn't get fixed, how does this affect other parts of the business — are where real urgency is built. Need-Payoff questions then let the buyer sell themselves on the solution.",
+  },
+  {
+    id: "peemees",
+    icon: <MessageSquare className="w-6 h-6 text-primary" />,
+    title: "PEEMEES",
+    category: "Meeting & Conversation Skills",
+    description: "A framework for running high-stakes sales meetings — built around control, honesty, and never letting your emotions drive your responses.",
+    details: "Most meeting skills training teaches you how to be polished. PEEMEES teaches you how to be effective. The difference is significant. Polished gets you nodded at. Effective gets you to the truth of where a deal actually stands — fast, without wasted time on either side. I use this framework with any rep who's prone to happy ears, over-pitching, or losing control of a discovery call.",
+    letters: [
+      { letter: "P", label: "Pattern Interrupt", desc: "Disarm them immediately. No corporate waffle. Start the meeting in a way they don't expect." },
+      { letter: "E", label: "Up-Front Contract", desc: "Set the rules of the call early so nobody wastes time. Agree the agenda, the outcome, and what happens at the end." },
+      { letter: "E", label: "Pain Funnel", desc: "Go deeper on pain. Surface-level gets you nowhere. Keep asking 'and what does that cost you?' until you hit the real number." },
+      { letter: "M", label: "Negative Reverse", desc: "Be willing to walk away. Take the deal off the table. Nothing changes a buyer's frame faster than genuine indifference." },
+      { letter: "E", label: "Reversing", desc: "Answer questions with questions. Stay in control. When they ask about price, ask what their budget looks like." },
+      { letter: "E", label: "No Happy Ears", desc: "Stay neutral. Do not get excited when they show interest. Interest is not commitment. Enthusiasm kills objectivity." },
+      { letter: "S", label: "Stay in the Adult", desc: "Keep your emotional state flat and professional throughout. Reactive selling — defensive, over-eager, flustered — costs deals." },
+    ]
   },
   {
     id: "pipeline-review",
