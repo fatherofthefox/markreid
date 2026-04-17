@@ -16,6 +16,22 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### Mark Reid - Personal Website (`artifacts/mark-reid-site`)
+- **Kind**: react-vite (frontend-only, no backend required)
+- **Preview path**: `/`
+- **Purpose**: Mark Reid's personal website at markreid.online
+- **Pages**:
+  - `/` — Home/Landing
+  - `/about` — About Mark
+  - `/tech-ai` — Tech & AI (includes "Enterprise Elite Five" system prompt artifact)
+  - `/frameworks` — Engineering frameworks and mental models
+  - `/advisory` — Advisory services
+  - `/content` — Content hub (talks, writing, media)
+  - `/blog` — Blog listing + `/blog/:slug` detail
+- **Design**: Dark, premium aesthetic — deep navy/near-black, gold and blue accents, serif typography (Playfair Display + Inter)
+
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages
@@ -23,5 +39,6 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
+- `pnpm --filter @workspace/mark-reid-site run dev` — run personal website locally
 
 See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
