@@ -31,6 +31,7 @@ export function Footer() {
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">LinkedIn</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Twitter / X</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">GitHub</a></li>
+              <li><Link href="/admin/login" className="text-muted-foreground/50 hover:text-primary transition-colors text-sm">Admin</Link></li>
             </ul>
           </div>
         </div>

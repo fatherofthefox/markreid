@@ -59,7 +59,7 @@ export default function AdminLogin() {
                   onChange={e => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  className="w-full bg-background border border-border px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
+                  className="w-full bg-white/5 border border-white/20 px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
                   placeholder="admin@markreid.online"
                 />
               </div>
@@ -71,7 +71,7 @@ export default function AdminLogin() {
                   onChange={e => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
-                  className="w-full bg-background border border-border px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
+                  className="w-full bg-white/5 border border-white/20 px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
                   placeholder="••••••••••••"
                 />
               </div>
@@ -87,7 +87,7 @@ export default function AdminLogin() {
                 required
                 maxLength={6}
                 autoComplete="one-time-code"
-                className="w-full bg-background border border-border px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors text-center text-2xl tracking-widest font-mono"
+                className="w-full bg-white/5 border border-white/20 px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors text-center text-2xl tracking-widest font-mono"
                 placeholder="000000"
               />
             </div>
