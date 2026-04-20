@@ -1,4 +1,3 @@
-yaml
 name: Deploy to GitHub Pages
 
 on:
@@ -26,14 +25,13 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24  # Updated to resolve deprecation warning
+          node-version: 24
           cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Build site
-        # Targets your specific site within the artifacts folder
         run: pnpm --filter mark-reid-site build
 
       - name: Upload Artifacts
