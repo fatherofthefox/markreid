@@ -1,9 +1,10 @@
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/layout";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FadeUp, Stagger, StaggerItem } from "@/components/ui/animate";
 
-const posts = [
+const FALLBACK_POSTS = [
   {
     slug: "pipeline-reviews",
     title: "Why Most Pipeline Reviews Are a Waste of Time",
@@ -41,7 +42,34 @@ const posts = [
   },
 ];
 
+function formatDate(dateStr: string) {
+  try {
+    return new Date(dateStr).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  } catch {
+    return dateStr;
+  }
+}
+
 export default function Blog() {
+  const [posts, setPosts] = useState(FALLBACK_POSTS);
+
+  useEffect(() => {
+    fetch("/api/public/posts")
+      .then(r => r.ok ? r.json() : null)
+      .then((data: any[] | null) => {
+        if (data && data.length > 0) {
+          setPosts(data.map(p => ({
+            slug: p.slug,
+            title: p.title,
+            date: formatDate(p.createdAt),
+            excerpt: p.excerpt ?? "",
+            readTime: p.readTime ?? "",
+          })));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <Layout>
       <div className="container mx-auto px-6 py-24 md:py-32">
@@ -67,8 +95,12 @@ export default function Blog() {
                 >
                   <div className="flex items-center gap-4 text-sm font-mono text-muted-foreground mb-4">
                     <time>{post.date}</time>
-                    <span className="text-border">•</span>
-                    <span>{post.readTime}</span>
+                    {post.readTime && (
+                      <>
+                        <span className="text-border">•</span>
+                        <span>{post.readTime}</span>
+                      </>
+                    )}
                   </div>
                   <Link href={`/blog/${post.slug}`}>
                     <h3 className="text-3xl font-serif font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-200">

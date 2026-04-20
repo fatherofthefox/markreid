@@ -1,13 +1,29 @@
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/layout";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FadeUp, Stagger, StaggerItem } from "@/components/ui/animate";
 import { ArrowRight, BookOpen, Target, Users, TrendingUp, CheckSquare, Zap, BarChart2, MessageSquare } from "lucide-react";
 
-const frameworks = [
+// Icon mapping from framework slug/category to icon component
+function getIcon(slug: string, category: string) {
+  const key = slug?.toLowerCase() ?? "";
+  if (key.includes("meddic")) return <Target className="w-6 h-6 text-primary" />;
+  if (key.includes("faint")) return <CheckSquare className="w-6 h-6 text-primary" />;
+  if (key.includes("challenger")) return <TrendingUp className="w-6 h-6 text-primary" />;
+  if (key.includes("spin")) return <BarChart2 className="w-6 h-6 text-primary" />;
+  if (key.includes("peemees")) return <MessageSquare className="w-6 h-6 text-primary" />;
+  if (key.includes("pipeline")) return <Zap className="w-6 h-6 text-primary" />;
+  if (key.includes("growth") || key.includes("team")) return <Users className="w-6 h-6 text-primary" />;
+  // Fallback by category
+  if (category?.toLowerCase().includes("team")) return <Users className="w-6 h-6 text-primary" />;
+  return <Target className="w-6 h-6 text-primary" />;
+}
+
+const FALLBACK_FRAMEWORKS = [
   {
     id: "meddic",
-    icon: <Target className="w-6 h-6 text-primary" />,
+    slug: "meddic",
     title: "MEDDIC",
     category: "Qualification Framework",
     description: "The most rigorous enterprise qualification framework I've worked with. If you can't answer every letter, you don't have a deal — you have a conversation.",
@@ -23,7 +39,7 @@ const frameworks = [
   },
   {
     id: "faint",
-    icon: <CheckSquare className="w-6 h-6 text-primary" />,
+    slug: "faint",
     title: "FAINT",
     category: "Qualification Framework",
     description: "A lighter-touch qualification model that works well earlier in the pipeline, before a full MEDDIC assessment is viable.",
@@ -38,23 +54,25 @@ const frameworks = [
   },
   {
     id: "challenger",
-    icon: <TrendingUp className="w-6 h-6 text-primary" />,
+    slug: "challenger",
     title: "The Challenger Sale",
     category: "Sales Methodology",
     description: "The insight that top performers don't just respond to buyers — they teach, tailor, and take control of the conversation.",
     details: "The Challenger model, developed by Dixon and Adamson, flipped the conventional wisdom that relationship-building is the key driver of sales success. Their research found that 'Challengers' — reps who lead with insight, reframe how buyers think about their problems, and are willing to push back — outperform every other type. The practical takeaway isn't to be contrarian. It's to arrive at every conversation with a point of view that the buyer hasn't fully considered, one that naturally leads to your solution.",
+    letters: null,
   },
   {
     id: "spin",
-    icon: <BarChart2 className="w-6 h-6 text-primary" />,
+    slug: "spin",
     title: "SPIN Selling",
     category: "Discovery Framework",
     description: "A structured approach to discovery that moves from surface symptoms to the real cost of the problem — before proposing anything.",
     details: "Neil Rackham's SPIN Selling (Situation, Problem, Implication, Need-Payoff) remains one of the most evidence-based approaches to consultative selling. The key insight: most reps spend too long on Situation questions and jump to pitching before the buyer has fully internalised the cost of their problem. Implication questions — what happens if this doesn't get fixed, how does this affect other parts of the business — are where real urgency is built. Need-Payoff questions then let the buyer sell themselves on the solution.",
+    letters: null,
   },
   {
     id: "peemees",
-    icon: <MessageSquare className="w-6 h-6 text-primary" />,
+    slug: "peemees",
     title: "PEEMEES",
     category: "Meeting & Conversation Skills",
     description: "A framework for running high-stakes sales meetings — built around control, honesty, and never letting your emotions drive your responses.",
@@ -71,23 +89,46 @@ const frameworks = [
   },
   {
     id: "pipeline-review",
-    icon: <Zap className="w-6 h-6 text-primary" />,
+    slug: "pipeline-review",
     title: "The Real Pipeline Review",
     category: "Sales Operations",
     description: "Not a status update. A structured interrogation of deal quality, risk, and the actions required to move each opportunity forward.",
     details: "Most pipeline reviews are theatre. The manager asks 'where are we on this?' and the rep gives an optimistic summary. Nothing changes. A real pipeline review is structured around the qualification framework (MEDDIC), asks hard questions about what's actually been validated vs. assumed, and ends with explicit next actions and dates. It should be uncomfortable to present a poorly-qualified deal. When it isn't, your pipeline becomes a vanity metric rather than a forecasting tool.",
+    letters: null,
   },
   {
     id: "growth-team",
-    icon: <Users className="w-6 h-6 text-primary" />,
+    slug: "growth-team",
     title: "Building the Growth Team",
     category: "Team & Org Design",
     description: "The sequence in which you hire, the roles you create, and how you structure incentives determines whether you have a growth team or just a headcount plan.",
     details: "Growth teams fail for predictable reasons: hiring salespeople before the motion is defined, creating too many specialists before you have the volume to justify them, or structuring comp plans that incentivise activity over outcomes. The sequence matters enormously. Before you hire your fourth AE, make sure you have a repeatable qualification process, a clear ICP, and a manager who can coach to the methodology. Headcount without process doesn't scale — it just creates more noise.",
+    letters: null,
   }
 ];
 
 export default function Frameworks() {
+  const [frameworks, setFrameworks] = useState(FALLBACK_FRAMEWORKS);
+
+  useEffect(() => {
+    fetch("/api/public/frameworks")
+      .then(r => r.ok ? r.json() : null)
+      .then((data: any[] | null) => {
+        if (data && data.length > 0) {
+          setFrameworks(data.map(fw => ({
+            id: String(fw.id),
+            slug: fw.slug,
+            title: fw.title,
+            category: fw.category ?? "",
+            description: fw.description ?? "",
+            details: fw.details ?? "",
+            letters: fw.letters ?? null,
+          })));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <Layout>
       <div className="container mx-auto px-6 py-24 md:py-32">
@@ -113,7 +154,7 @@ export default function Frameworks() {
 
                 <div className="flex flex-col md:flex-row gap-8 items-start">
                   <div className="flex-shrink-0 bg-background border border-border p-4 rounded-sm group-hover:bg-primary/10 group-hover:border-primary/30 transition-colors duration-300">
-                    {fw.icon}
+                    {getIcon(fw.slug, fw.category)}
                   </div>
 
                   <div className="w-full">
@@ -130,9 +171,9 @@ export default function Frameworks() {
                       {fw.details}
                     </p>
 
-                    {fw.letters && (
+                    {fw.letters && Array.isArray(fw.letters) && fw.letters.length > 0 && (
                       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {fw.letters.map((l, idx) => (
+                        {(fw.letters as any[]).map((l: any, idx: number) => (
                           <motion.div
                             key={`${l.letter}-${idx}`}
                             className="flex items-start gap-3 bg-background/50 border border-border/50 p-4 rounded-sm hover:border-primary/30 transition-colors duration-200"
