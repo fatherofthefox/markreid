@@ -1,3 +1,4 @@
+yaml
 name: Deploy to GitHub Pages
 
 on:
@@ -16,20 +17,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24  # Updated to resolve deprecation warning
+          cache: 'pnpm'
+
       - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
+        run: pnpm install
+
+      - name: Build site
+        # Targets your specific site within the artifacts folder
+        run: pnpm --filter mark-reid-site build
+
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          # this should match your Vite output folder (usually 'dist')
-          path: './dist'
+          path: './artifacts/mark-reid-site/dist'
 
   deploy:
     needs: build_site
