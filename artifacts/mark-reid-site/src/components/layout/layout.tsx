@@ -12,7 +12,7 @@ export function Layout({ children }: LayoutProps) {
   const [location] = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground dark selection:bg-primary selection:text-primary-foreground">
+    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.main

@@ -14,7 +14,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0e] text-foreground flex">
+    <div className="dark min-h-screen bg-[#0a0a0e] text-foreground flex">
       {/* Sidebar */}
       <aside className="w-64 border-r border-border flex flex-col shrink-0">
         <div className="p-6 border-b border-border">
