@@ -68,13 +68,13 @@ app.use("/uploads", express.static(uploadsDir, {
 
 app.use("/api", router);
 
-// In production serve the built React frontend and let the SPA handle routing
-if (process.env.NODE_ENV === "production") {
-  const frontendDist = path.resolve(__dirname, "../../mark-reid-site/dist");
-  app.use(express.static(frontendDist, { maxAge: "1y", index: false }));
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-}
+// Serve the React frontend
+const frontendDir = path.resolve(__dirname, "../../mark-reid-site/dist");
+app.use(express.static(frontendDir));
+
+// All other routes serve the React app (for client-side routing)
+app.get("/{*path}", (_req, res) => {
+  res.sendFile(path.join(frontendDir, "index.html"));
+});
 
 export default app;
