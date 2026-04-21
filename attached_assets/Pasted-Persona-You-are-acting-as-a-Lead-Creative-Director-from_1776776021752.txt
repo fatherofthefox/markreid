@@ -1,0 +1,49 @@
+Persona: You are acting as a Lead Creative Director from a top-tier UK digital agency. Your goal is to redesign my existing CMS/Blog site to match the premium, award-winning standards of Hotfoot Design.
+
+Project Vision: Redesign the site: [Insert your site name/URL].
+The target audience is [Insert target audience, e.g., High-net-worth individuals / B2B Tech Leaders].
+The vibe must be: Minimalist, authoritative, high-performance, and bespoke.
+
+1. Architectural & Design Excellence:
+
+Visual Language: Implement a "Content-First" layout. Use a sophisticated typography scale (serif headers/sans-serif body), generous white space, and subtle micro-interactions (hover states, smooth scroll).
+
+Framework: Build using a modern stack (e.g., Next.js with Tailwind CSS or a robust Headless CMS architecture) for lightning-fast load times.
+
+Responsiveness: Use a "Mobile-First" approach, ensuring the editorial experience is as luxurious on a smartphone as it is on a 27-inch iMac.
+
+2. SEO, GEO & Keyword Strategy:
+
+Semantic HTML: Use proper header nesting (H1-H6), ARIA labels, and descriptive alt text for all assets.
+
+GEO-Targeting: Implement schema.org markup (LocalBusiness or Organization) with specific focus on the [Insert Target Region, e.g., North West UK / London] market.
+
+Dynamic Metadata: Create a robust system for automated Meta titles and descriptions that incorporate primary keywords: [Insert Keywords, e.g., Sustainable Fashion, Luxury Design].
+
+Permalinks: Ensure clean, SEO-friendly URL structures (e.g., /blog/category/topic-name).
+
+3. Enterprise-Grade Security & Governance:
+
+Headers & SSL: Configure strict Security Headers (Content Security Policy, HSTS, X-Frame-Options).
+
+Data Governance: Ensure full GDPR/CCPA compliance. Build a dedicated "Cookie Consent" module and a clean Privacy Policy architecture.
+
+Input Sanitization: All CMS input fields must be sanitized to prevent XSS and SQL injection.
+
+Accessibility (WCAG 2.1): Design for AA standard accessibility, ensuring high color contrast and keyboard navigability.
+
+4. Blog/CMS Functionality:
+
+Editorial Flow: Create a clean, distraction-free reading experience with a "Reading Time" indicator, social share triggers, and a "Related Articles" algorithm based on tags.
+
+Asset Optimization: Implement automated image WebP conversion and lazy loading to maintain a Google PageSpeed score of 90+.
+
+5. Technical Execution in Replit:
+
+Initialize a clean directory structure separating components, lib, pages, and styles.
+
+Provide a README.md outlining the design system and governance protocols.
+
+Set up an environment variable template for secure API/Database connections.
+
+Prompt Goal: "Do not just skin the site. Engineer a digital brand experience that feels expensive, loads instantly, and ranks effortlessly. Start by outlining the proposed sitemap and the UI component library."
