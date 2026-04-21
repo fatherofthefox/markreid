@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useAdmin } from "@/admin/context";
 import { motion } from "framer-motion";
 import { Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 export default function AdminLogin() {
-  const { login } = useAdmin();
+  const { user, loading: authLoading, login } = useAdmin();
   const [, navigate] = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,25 +13,39 @@ export default function AdminLogin() {
   const [totpCode, setTotpCode] = useState("");
   const [mfaRequired, setMfaRequired] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  // Navigate to dashboard once user state is confirmed set after login
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate("/admin/dashboard");
+    }
+  }, [user, authLoading, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setSubmitting(true);
     try {
       const result = await login(email, password, mfaRequired ? totpCode : undefined);
       if (result.mfaRequired) {
         setMfaRequired(true);
-      } else {
-        navigate("/admin/dashboard");
       }
+      // Navigation handled by useEffect above when user state updates
     } catch (err: any) {
       setError(err.message ?? "Login failed");
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0e] flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-[#c9a84c]/30 border-t-[#c9a84c] rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0a0e] flex items-center justify-center p-6">
@@ -62,9 +76,9 @@ export default function AdminLogin() {
                   onChange={e => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  className="w-full bg-white/8 border border-white/20 px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors rounded-none"
+                  className="w-full border border-white/20 px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors"
                   placeholder="admin@markreid.online"
-                  style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.06)", borderRadius: 0 }}
                 />
               </div>
 
@@ -79,9 +93,9 @@ export default function AdminLogin() {
                     onChange={e => setPassword(e.target.value)}
                     required
                     autoComplete="current-password"
-                    className="w-full bg-white/8 border border-white/20 px-4 py-3 pr-12 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors rounded-none"
+                    className="w-full border border-white/20 px-4 py-3 pr-12 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors"
                     placeholder="••••••••••••"
-                    style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+                    style={{ backgroundColor: "rgba(255,255,255,0.06)", borderRadius: 0 }}
                   />
                   <button
                     type="button"
@@ -110,9 +124,9 @@ export default function AdminLogin() {
                 required
                 maxLength={6}
                 autoComplete="one-time-code"
-                className="w-full border border-white/20 px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors text-center text-2xl tracking-widest font-mono rounded-none"
+                className="w-full border border-white/20 px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors text-center text-2xl tracking-widest font-mono"
                 placeholder="000000"
-                style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+                style={{ backgroundColor: "rgba(255,255,255,0.06)", borderRadius: 0 }}
               />
             </div>
           )}
@@ -126,10 +140,10 @@ export default function AdminLogin() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={submitting}
             className="w-full bg-[#c9a84c] text-black font-semibold py-3 hover:bg-[#d4b86a] transition-colors disabled:opacity-50"
           >
-            {loading ? "Signing in…" : mfaRequired ? "Verify Code" : "Sign In"}
+            {submitting ? "Signing in…" : mfaRequired ? "Verify Code" : "Sign In"}
           </button>
 
           {mfaRequired && (

@@ -23,12 +23,21 @@ import BlogEditor from "@/pages/admin/blog-editor";
 import AdminMedia from "@/pages/admin/media";
 import FrameworksAdmin from "@/pages/admin/frameworks-admin";
 import AdminSecurity from "@/pages/admin/security";
+import AdminPageHome from "@/pages/admin/page-home";
+import AdminPageAbout from "@/pages/admin/page-about";
+import AdminPageTechAI from "@/pages/admin/page-tech-ai";
+import AdminPageAdvisory from "@/pages/admin/page-advisory";
+import AdminPageContent from "@/pages/admin/page-content";
 
 const queryClient = new QueryClient();
 
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
   const { user, loading } = useAdmin();
-  if (loading) return <div className="min-h-screen bg-[#0a0a0e] flex items-center justify-center text-muted-foreground text-sm">Loading…</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-[#0a0a0e] flex items-center justify-center">
+      <div className="w-6 h-6 border-2 border-[#c9a84c]/30 border-t-[#c9a84c] rounded-full animate-spin" />
+    </div>
+  );
   if (!user) return <Redirect to="/admin/login" />;
   return <Component />;
 }
@@ -46,9 +55,17 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
 
-      {/* Admin */}
+      {/* Admin — Auth */}
       <Route path="/admin/login" component={AdminLogin} />
-      <Route path="/admin/dashboard" component={() => <ProtectedRoute component={AdminDashboard} />} />
+
+      {/* Admin — Page Editors */}
+      <Route path="/admin/pages/home" component={() => <ProtectedRoute component={AdminPageHome} />} />
+      <Route path="/admin/pages/about" component={() => <ProtectedRoute component={AdminPageAbout} />} />
+      <Route path="/admin/pages/tech-ai" component={() => <ProtectedRoute component={AdminPageTechAI} />} />
+      <Route path="/admin/pages/advisory" component={() => <ProtectedRoute component={AdminPageAdvisory} />} />
+      <Route path="/admin/pages/content" component={() => <ProtectedRoute component={AdminPageContent} />} />
+
+      {/* Admin — Content & Media */}
       <Route path="/admin/blog/new" component={() => <ProtectedRoute component={BlogEditor} />} />
       <Route path="/admin/blog/:id" component={() => <ProtectedRoute component={BlogEditor} />} />
       <Route path="/admin/blog" component={() => <ProtectedRoute component={AdminBlog} />} />
@@ -57,6 +74,7 @@ function Router() {
       <Route path="/admin/frameworks" component={() => <ProtectedRoute component={FrameworksAdmin} />} />
       <Route path="/admin/media" component={() => <ProtectedRoute component={AdminMedia} />} />
       <Route path="/admin/security" component={() => <ProtectedRoute component={AdminSecurity} />} />
+      <Route path="/admin/dashboard" component={() => <ProtectedRoute component={AdminDashboard} />} />
       <Route path="/admin" component={() => <Redirect to="/admin/dashboard" />} />
 
       <Route component={NotFound} />
