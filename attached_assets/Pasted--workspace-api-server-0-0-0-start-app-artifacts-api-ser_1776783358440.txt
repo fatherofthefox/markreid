@@ -1,0 +1,120 @@
+> @workspace/api-server@0.0.0 start /app/artifacts/api-server
+> node --enable-source-maps ./dist/index.mjs
+/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+Error: getaddrinfo ENOTFOUND helium
+    at <anonymous> (/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runBootstrap (/app/artifacts/api-server/src/scripts/bootstrap.ts:78:18)
+    at async <anonymous> (/app/artifacts/api-server/src/index.ts:20:1) {
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'helium'
+}
+Node.js v22.22.2
+/app/artifacts/api-server:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+Exit status 1
+Starting Container
+> @workspace/api-server@0.0.0 start /app/artifacts/api-server
+> node --enable-source-maps ./dist/index.mjs
+/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+Error: getaddrinfo ENOTFOUND helium
+    at <anonymous> (/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runBootstrap (/app/artifacts/api-server/src/scripts/bootstrap.ts:78:18)
+    at async <anonymous> (/app/artifacts/api-server/src/index.ts:20:1) {
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'helium'
+}
+Node.js v22.22.2
+/app/artifacts/api-server:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+Exit status 1
+/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45
+  errno: -3008,
+    Error.captureStackTrace(err)
+  code: 'ENOTFOUND',
+          ^
+  syscall: 'getaddrinfo',
+Error: getaddrinfo ENOTFOUND helium
+  hostname: 'helium'
+    at <anonymous> (/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runBootstrap (/app/artifacts/api-server/src/scripts/bootstrap.ts:78:18)
+    at async <anonymous> (/app/artifacts/api-server/src/index.ts:20:1) {
+> @workspace/api-server@0.0.0 start /app/artifacts/api-server
+}
+> node --enable-source-maps ./dist/index.mjs
+Node.js v22.22.2
+/app/artifacts/api-server:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+Exit status 1
+> @workspace/api-server@0.0.0 start /app/artifacts/api-server
+> node --enable-source-maps ./dist/index.mjs
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'helium'
+}
+Node.js v22.22.2
+/app/artifacts/api-server:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+Exit status 1
+/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+Error: getaddrinfo ENOTFOUND helium
+    at <anonymous> (/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runBootstrap (/app/artifacts/api-server/src/scripts/bootstrap.ts:78:18)
+    at async <anonymous> (/app/artifacts/api-server/src/index.ts:20:1) {
+> @workspace/api-server@0.0.0 start /app/artifacts/api-server
+> node --enable-source-maps ./dist/index.mjs
+/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+Error: getaddrinfo ENOTFOUND helium
+    at <anonymous> (/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runBootstrap (/app/artifacts/api-server/src/scripts/bootstrap.ts:78:18)
+    at async <anonymous> (/app/artifacts/api-server/src/index.ts:20:1) {
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'helium'
+}
+Node.js v22.22.2
+/app/artifacts/api-server:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+Exit status 1
+> @workspace/api-server@0.0.0 start /app/artifacts/api-server
+> node --enable-source-maps ./dist/index.mjs
+> @workspace/api-server@0.0.0 start /app/artifacts/api-server
+> node --enable-source-maps ./dist/index.mjs
+/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45
+Node.js v22.22.2
+    Error.captureStackTrace(err)
+          ^
+Error: getaddrinfo ENOTFOUND helium
+    at <anonymous> (/app/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async runBootstrap (/app/artifacts/api-server/src/scripts/bootstrap.ts:78:18)
+    at async <anonymous> (/app/artifacts/api-server/src/index.ts:20:1) {
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'helium'
+}
+/app/artifacts/api-server:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+Exit status 1
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+> node --enable-source-maps ./dist/index.mjs
+    at async runBootstrap (/app/artifacts/api-server/src/scripts/bootstrap.ts:78:18)
