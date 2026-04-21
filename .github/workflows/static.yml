@@ -1,6 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -30,7 +32,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Build site
-        run: pnpm --filter @workspace/mark-reid-site build
+        run: pnpm --filter mark-reid-site build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
