@@ -156,6 +156,15 @@ export default function AdminLogin() {
             </button>
           )}
         </form>
+
+        <div className="mt-8 text-center">
+          <a
+            href="/"
+            className="text-sm text-white/30 hover:text-white/70 transition-colors"
+          >
+            ← Back to site
+          </a>
+        </div>
       </motion.div>
     </div>
   );
