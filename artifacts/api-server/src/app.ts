@@ -68,4 +68,13 @@ app.use("/uploads", express.static(uploadsDir, {
 
 app.use("/api", router);
 
+// Serve the React frontend
+const frontendDir = path.resolve(__dirname, "../../mark-reid-site/dist");
+app.use(express.static(frontendDir));
+
+// All other routes serve the React app (for client-side routing)
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(frontendDir, "index.html"));
+});
+
 export default app;
