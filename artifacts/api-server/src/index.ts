@@ -1,5 +1,6 @@
 import app from "./app";
 import { logger } from "./lib/logger";
+import { runBootstrap } from "./scripts/bootstrap.js";
 
 const rawPort = process.env["PORT"];
 
@@ -14,6 +15,9 @@ const port = Number(rawPort);
 if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
+
+// Ensure all DB tables exist and seed admin user if needed
+await runBootstrap();
 
 app.listen(port, (err) => {
   if (err) {
