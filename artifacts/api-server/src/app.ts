@@ -19,6 +19,10 @@ if (!process.env.SESSION_SECRET) {
 
 const app: Express = express();
 
+// Trust the first proxy hop — required for Railway, Render, and any reverse-proxy host
+// so that express-rate-limit can identify clients correctly via X-Forwarded-For
+app.set("trust proxy", 1);
+
 app.use(
   pinoHttp({
     logger,

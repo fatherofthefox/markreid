@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { useAdmin } from "@/admin/context";
 import { motion } from "framer-motion";
-import { Lock, AlertCircle } from "lucide-react";
+import { Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 export default function AdminLogin() {
   const { login } = useAdmin();
   const [, navigate] = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [totpCode, setTotpCode] = useState("");
   const [mfaRequired, setMfaRequired] = useState(false);
   const [error, setError] = useState("");
@@ -41,45 +42,67 @@ export default function AdminLogin() {
         transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-12 h-12 border border-border bg-primary/10 mb-4">
-            <Lock className="w-5 h-5 text-primary" />
+          <div className="inline-flex items-center justify-center w-12 h-12 border border-white/20 bg-[#c9a84c]/10 mb-4">
+            <Lock className="w-5 h-5 text-[#c9a84c]" />
           </div>
-          <h1 className="text-2xl font-serif font-bold text-foreground">Admin Access</h1>
-          <p className="text-muted-foreground text-sm mt-1">Mark Reid CMS</p>
+          <h1 className="text-2xl font-serif font-bold text-white">Admin Access</h1>
+          <p className="text-white/50 text-sm mt-1">Mark Reid CMS</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {!mfaRequired ? (
             <>
               <div>
-                <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Email</label>
+                <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2">
+                  Email
+                </label>
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  className="w-full bg-white/5 border border-white/20 px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
+                  className="w-full bg-white/8 border border-white/20 px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors rounded-none"
                   placeholder="admin@markreid.online"
+                  style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
                 />
               </div>
+
               <div>
-                <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  required
-                  autoComplete="current-password"
-                  className="w-full bg-white/5 border border-white/20 px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
-                  placeholder="••••••••••••"
-                />
+                <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    required
+                    autoComplete="current-password"
+                    className="w-full bg-white/8 border border-white/20 px-4 py-3 pr-12 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors rounded-none"
+                    placeholder="••••••••••••"
+                    style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(v => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/80 transition-colors"
+                    tabIndex={-1}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
               </div>
             </>
           ) : (
             <div>
-              <p className="text-sm text-muted-foreground mb-4">Enter the 6-digit code from your authenticator app.</p>
-              <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Authenticator Code</label>
+              <p className="text-sm text-white/50 mb-4">
+                Enter the 6-digit code from your authenticator app.
+              </p>
+              <label className="block text-xs font-medium text-white/50 uppercase tracking-wider mb-2">
+                Authenticator Code
+              </label>
               <input
                 type="text"
                 value={totpCode}
@@ -87,8 +110,9 @@ export default function AdminLogin() {
                 required
                 maxLength={6}
                 autoComplete="one-time-code"
-                className="w-full bg-white/5 border border-white/20 px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors text-center text-2xl tracking-widest font-mono"
+                className="w-full border border-white/20 px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a84c] transition-colors text-center text-2xl tracking-widest font-mono rounded-none"
                 placeholder="000000"
+                style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
               />
             </div>
           )}
@@ -103,13 +127,17 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary text-primary-foreground font-semibold py-3 hover:bg-primary/90 transition-colors disabled:opacity-50"
+            className="w-full bg-[#c9a84c] text-black font-semibold py-3 hover:bg-[#d4b86a] transition-colors disabled:opacity-50"
           >
             {loading ? "Signing in…" : mfaRequired ? "Verify Code" : "Sign In"}
           </button>
 
           {mfaRequired && (
-            <button type="button" onClick={() => setMfaRequired(false)} className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <button
+              type="button"
+              onClick={() => setMfaRequired(false)}
+              className="w-full text-sm text-white/40 hover:text-white transition-colors"
+            >
               ← Back to password
             </button>
           )}
