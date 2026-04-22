@@ -72,6 +72,15 @@ CREATE TABLE IF NOT EXISTS password_reset_tokens (
   used            BOOLEAN NOT NULL DEFAULT FALSE,
   created_at      TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS inquiries (
+  id              SERIAL PRIMARY KEY,
+  name            TEXT    NOT NULL,
+  organisation    TEXT,
+  email           TEXT    NOT NULL,
+  context         TEXT,
+  created_at      TIMESTAMP NOT NULL DEFAULT NOW()
+);
 `;
 
 export async function runBootstrap(): Promise<void> {

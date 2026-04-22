@@ -6,6 +6,7 @@ import postsRouter from "./admin/posts.js";
 import frameworksRouter from "./admin/frameworks.js";
 import contentRouter from "./admin/content.js";
 import mediaRouter from "./admin/media.js";
+import inquiriesRouter from "./admin/inquiries.js";
 import { requireAdmin } from "../middlewares/auth.js";
 import { apiRateLimiter } from "../middlewares/rateLimiter.js";
 
@@ -20,5 +21,6 @@ router.use("/admin/posts", requireAdmin, postsRouter);
 router.use("/admin/frameworks", requireAdmin, frameworksRouter);
 router.use("/admin/content", requireAdmin, contentRouter);
 router.use("/admin/media", requireAdmin, mediaRouter);
+router.use("/admin/inquiries", requireAdmin, inquiriesRouter);
 
 export default router;

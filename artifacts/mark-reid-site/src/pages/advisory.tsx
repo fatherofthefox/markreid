@@ -1,7 +1,8 @@
 import { Layout } from "@/components/layout/layout";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FadeUp, Stagger, StaggerItem } from "@/components/ui/animate";
-import { ArrowRight, Mail, MapPin, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Calendar, Clock, CheckCircle, Loader2 } from "lucide-react";
 
 const services = [
   {
@@ -22,7 +23,40 @@ const services = [
   },
 ];
 
+const initialFields = { name: "", organisation: "", email: "", context: "" };
+
 export default function Advisory() {
+  const [fields, setFields] = useState(initialFields);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const set = (key: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFields((f) => ({ ...f, [key]: e.target.value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/public/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErrorMsg(data.error ?? "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+      setFields(initialFields);
+    } catch {
+      setErrorMsg("Network error. Please check your connection and try again.");
+      setStatus("error");
+    }
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-6 py-24 md:py-32">
@@ -66,7 +100,7 @@ export default function Advisory() {
             </Stagger>
           </div>
 
-          {/* Right Column — Engagement Info */}
+          {/* Right Column — Engagement Info + Form */}
           <div className="lg:pl-12">
             <FadeUp delay={0.2} className="bg-[#0a0a0e] border border-border p-8 md:p-10 sticky top-32">
               <h3 className="text-xl font-serif font-bold mb-6">Current Availability</h3>
@@ -86,45 +120,111 @@ export default function Advisory() {
 
               <div className="h-px bg-border my-8" />
 
-              <h4 className="font-semibold mb-4">Start a conversation</h4>
-              <p className="text-sm text-muted-foreground mb-6">
-                Tell me briefly about your situation — the team, the stage, and what you're trying to solve.
-              </p>
+              <AnimatePresence mode="wait">
+                {status === "success" ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.4 }}
+                    className="text-center py-8"
+                  >
+                    <div className="flex justify-center mb-4">
+                      <CheckCircle className="w-12 h-12 text-primary" />
+                    </div>
+                    <h4 className="text-xl font-serif font-bold text-foreground mb-3">Message received.</h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                      Thank you for getting in touch. I'll review your message and come back to you within 1–2 business days.
+                    </p>
+                    <button
+                      onClick={() => setStatus("idle")}
+                      className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider"
+                    >
+                      Send another message
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h4 className="font-semibold mb-4">Start a conversation</h4>
+                    <p className="text-sm text-muted-foreground mb-6">
+                      Tell me briefly about your situation — the team, the stage, and what you're trying to solve.
+                    </p>
 
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                {[
-                  { label: "Name", type: "text", testId: "input-name", placeholder: "Your name" },
-                  { label: "Organisation", type: "text", testId: "input-org", placeholder: "Company name" },
-                  { label: "Email", type: "email", testId: "input-email", placeholder: "you@company.com" },
-                ].map((field) => (
-                  <div key={field.label}>
-                    <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">{field.label}</label>
-                    <input
-                      type={field.type}
-                      data-testid={field.testId}
-                      className="w-full bg-background border border-border px-4 py-3 focus:outline-none focus:border-primary transition-colors duration-200 text-foreground hover:border-border/80"
-                      placeholder={field.placeholder}
-                    />
-                  </div>
-                ))}
-                <div>
-                  <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">What are you working on?</label>
-                  <textarea
-                    data-testid="input-context"
-                    className="w-full bg-background border border-border px-4 py-3 focus:outline-none focus:border-primary transition-colors duration-200 text-foreground min-h-[120px] resize-none hover:border-border/80"
-                    placeholder="Brief overview of your team, stage, and the challenge you're facing..."
-                  />
-                </div>
-                <motion.button
-                  type="submit"
-                  data-testid="btn-submit-inquiry"
-                  className="w-full bg-primary text-primary-foreground font-semibold py-4 hover:bg-primary/90 transition-colors flex items-center justify-center group"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                >
-                  Send Message <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </motion.button>
-              </form>
+                    <form className="space-y-4" onSubmit={handleSubmit} noValidate>
+                      {([
+                        { key: "name", label: "Name", type: "text", testId: "input-name", placeholder: "Your name", required: true },
+                        { key: "organisation", label: "Organisation", type: "text", testId: "input-org", placeholder: "Company name", required: false },
+                        { key: "email", label: "Email", type: "email", testId: "input-email", placeholder: "you@company.com", required: true },
+                      ] as const).map((field) => (
+                        <div key={field.key}>
+                          <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+                            {field.label}{field.required && <span className="text-primary ml-1">*</span>}
+                          </label>
+                          <input
+                            type={field.type}
+                            data-testid={field.testId}
+                            value={fields[field.key]}
+                            onChange={set(field.key)}
+                            required={field.required}
+                            disabled={status === "loading"}
+                            className="w-full bg-background border border-border px-4 py-3 focus:outline-none focus:border-primary transition-colors duration-200 text-foreground hover:border-border/80 disabled:opacity-50"
+                            placeholder={field.placeholder}
+                          />
+                        </div>
+                      ))}
+                      <div>
+                        <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+                          What are you working on?
+                        </label>
+                        <textarea
+                          data-testid="input-context"
+                          value={fields.context}
+                          onChange={set("context")}
+                          disabled={status === "loading"}
+                          className="w-full bg-background border border-border px-4 py-3 focus:outline-none focus:border-primary transition-colors duration-200 text-foreground min-h-[120px] resize-none hover:border-border/80 disabled:opacity-50"
+                          placeholder="Brief overview of your team, stage, and the challenge you're facing..."
+                        />
+                      </div>
+
+                      {status === "error" && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-sm text-red-400 bg-red-900/20 border border-red-900/40 px-4 py-3"
+                        >
+                          {errorMsg}
+                        </motion.p>
+                      )}
+
+                      <motion.button
+                        type="submit"
+                        data-testid="btn-submit-inquiry"
+                        disabled={status === "loading"}
+                        className="w-full bg-primary text-primary-foreground font-semibold py-4 hover:bg-primary/90 transition-colors flex items-center justify-center group disabled:opacity-60 disabled:cursor-not-allowed"
+                        whileHover={{ scale: status === "loading" ? 1 : 1.01 }}
+                        whileTap={{ scale: status === "loading" ? 1 : 0.99 }}
+                      >
+                        {status === "loading" ? (
+                          <>
+                            <Loader2 className="mr-2 w-4 h-4 animate-spin" /> Sending…
+                          </>
+                        ) : (
+                          <>
+                            Send Message <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </>
+                        )}
+                      </motion.button>
+                    </form>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <div className="mt-6 text-center">
                 <a href="mailto:mark@markreid.online" className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center">
