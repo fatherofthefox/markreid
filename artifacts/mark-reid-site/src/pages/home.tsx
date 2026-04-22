@@ -1,6 +1,6 @@
 import { Layout } from "@/components/layout/layout";
 import { Link } from "wouter";
-import { ArrowRight, ChevronRight, TrendingUp, Users, Target } from "lucide-react";
+import { ArrowRight, ChevronRight, TrendingUp, Users, Target, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { FadeUp, Stagger, StaggerItem, AnimatedCard } from "@/components/ui/animate";
 import heroImg from "@assets/_MG_6430_1776443485807.jpg";
@@ -71,6 +71,16 @@ export default function Home() {
                 >
                   Sales Frameworks
                 </Link>
+              </motion.div>
+
+              <motion.div variants={heroWord}>
+                <a
+                  href="mailto:mark@markreid.online"
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 mt-4"
+                >
+                  <Mail className="w-4 h-4" />
+                  mark@markreid.online
+                </a>
               </motion.div>
             </motion.div>
 

@@ -1,5 +1,7 @@
 import { Layout } from "@/components/layout/layout";
+import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { ArrowRight, Mail } from "lucide-react";
 import { FadeUp, Stagger, StaggerItem } from "@/components/ui/animate";
 import portraitImg from "@assets/_MG_6351_(2)_1776443505868.jpg";
 
@@ -91,6 +93,28 @@ export default function About() {
                 </p>
               </StaggerItem>
             </Stagger>
+
+            <FadeUp delay={0.2} className="mt-16 pt-12 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div>
+                <p className="text-sm font-mono text-primary uppercase tracking-widest mb-2">Get in Touch</p>
+                <p className="text-muted-foreground">Interested in working together? Start a conversation.</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center shrink-0">
+                <Link
+                  href="/advisory"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-colors group"
+                >
+                  Work with Me <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <a
+                  href="mailto:mark@markreid.online"
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                >
+                  <Mail className="w-4 h-4" />
+                  mark@markreid.online
+                </a>
+              </div>
+            </FadeUp>
           </div>
         </div>
       </div>
